@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "51912863940",
+    "firebase_url": "https://sharetimer-f1dd9.firebaseio.com",
+    "project_id": "sharetimer-f1dd9",
+    "storage_bucket": "sharetimer-f1dd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:51912863940:android:4dd7eb816c2a7531",
+        "android_client_info": {
+          "package_name": "com.tech.tomoking.watchshareapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "51912863940-p5476c10l9rv0pq2j5k3o8cub9c2ugh2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "51912863940-p5476c10l9rv0pq2j5k3o8cub9c2ugh2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3XgvB9l5qMhqonvbFDOMaJUhjb-yLoTg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
