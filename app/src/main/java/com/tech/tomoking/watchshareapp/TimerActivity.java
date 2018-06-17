@@ -76,7 +76,6 @@ public class TimerActivity extends AppCompatActivity {
     private class CountUpTimerTask extends TimerTask {
         @Override
         public void run() {
-            // handlerを使って処理をキューイングする
             handler.post(new Runnable() {
                 public void run() {
                     count++;
@@ -103,7 +102,7 @@ public class TimerActivity extends AppCompatActivity {
                         playButton.setText(R.string.stop_btn);
                         timer = new Timer();
                         timerTask = new CountUpTimerTask();
-                        timer.schedule(timerTask, delay, period);
+                        timer.scheduleAtFixedRate(timerTask, delay, period);
                     } else {
                         // Stop
                         playButton.setText(R.string.start_btn);
