@@ -1,13 +1,18 @@
 package com.tech.tomoking.watchshareapp;
 
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -27,8 +32,11 @@ public class TimerActivity extends AppCompatActivity {
     private long count, delay, period;
     private ArrayList<String> rapCountList;
     private ArrayAdapter<String> rapAdapter;
-
     private String zero;
+
+    // Firebase Authentication
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +49,23 @@ public class TimerActivity extends AppCompatActivity {
         zero = getString(R.string.zero);
         rapCountList = new ArrayList<>();
         rapCountList.add("Rap Time");
+
+        // Initialize FirebaseAuth instance and mAuthListener instance
+        mAuth = FirebaseAuth.getInstance();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                } else {
+                    // User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
+                // ...
+            }
+        };
 
         // TextView for showing StopWatch
         currentWatchText = findViewById(R.id.timer);
@@ -63,6 +88,20 @@ public class TimerActivity extends AppCompatActivity {
         // Set Listener to Reset Button
         Button rapButton = findViewById(R.id.reset_btn);
         rapButton.setOnClickListener(new playButtonClickListener());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
     }
 
     // Get string of current count value
